@@ -30,15 +30,15 @@ b:Label("",{
     
 })
 
-b:Toggle("Kill Aura",function(killaura)
+b:Toggle("Kill Aura",function(kaura)
     spawn(function()
-        if killaura then
+        if kaura then
             _G.killaura = true
-            notif("Kill-Aura On")
+            notif("Kill Aura On")
         else
             _G.killaura = false
-            notif("Kill-Aura Off")
-        end
+            notif("Kill Aura Off")
+        end    
 while _G.killaura do task.wait()
     pcall(function()
         for i,v in pairs(game:GetService("Players"):GetPlayers()) do
@@ -47,13 +47,23 @@ while _G.killaura do task.wait()
         
         else 
             
-        if v.Character:FindFirstChild("Infected") then    
+        if v.Character:FindFirstChild("Infected") then   
+            
+                local lp = game.Players.LocalPlayer
+                local character = v.Character
+                local charactername = v.Name
+        
+        if (lp.Character and lp.Character:FindFirstChild("Head") and character:FindFirstChild("Head")) then
+            local mag = (v.Character.Head.Position - lp.Character.Head.Position).Magnitude
+                  if mag < 15  then
 
             local ohInstance1 = v.Character["Head"]
             local ohInstance2 = v.Character.Humanoid
 
             game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
         
+        end
+        end
         end
         end
         end
@@ -121,6 +131,7 @@ while _G.antigrabbed do task.wait()
         if game:GetService("Players").LocalPlayer.Character.Struggling.Value == true then
             if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat") then
                 if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Bat") then
+                    if game:GetService("Players").LocalPlayer.Character.Struggling.Value == true then
                     game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid"):EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Bat"))
                     for i,v in pairs(game:GetService("Players"):GetPlayers()) do
                         local ohInstance1 = v.Character["Head"]
@@ -142,7 +153,8 @@ while _G.antigrabbed do task.wait()
                     end  
                     game:GetService("Players").LocalPlayer.Character.Struggling.Value = false
                 end
-                elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat") then
+            elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat") then
+                if game:GetService("Players").LocalPlayer.Character.Struggling.Value == true then
                     for i,v in pairs(game:GetService("Players"):GetPlayers()) do
                         local ohInstance1 = v.Character["Head"]
                         local ohInstance2 = v.Character.Humanoid
@@ -150,6 +162,8 @@ while _G.antigrabbed do task.wait()
                         game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
                     end    
                     game:GetService("Players").LocalPlayer.Character.Struggling.Value = false
+                end
+                end
                 end
             end)
         end
