@@ -280,8 +280,9 @@ b:Toggle("Anti Furry",function(antifur)
             _G.antifurry = false
             notif("Anti Furry Off")
         end
+while _G.antifurry do task.wait()    
+    pcall(function()
     if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Infected") then
-        pcall(function()
             local origin = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
             game:GetService("Players").LocalPlayer.Character:BreakJoints()
             game:GetService("Players").LocalPlayer.Character.Head:Destroy()
@@ -289,9 +290,10 @@ b:Toggle("Anti Furry",function(antifur)
             repeat task.wait() until game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head")
             task.wait(0.2)
             game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(origin)
-        end)
-    end
+        end
     end)
+end    
+end)
 end)
 
 b:Toggle("Auto Fast Respawn",function(autofspawn)
@@ -391,6 +393,50 @@ b:Toggle("Less Cooldown",function(lesscd)
 end)
 end)
 
+b:Toggle("Remove Shrooms",function(shrom)
+     spawn(function()
+        if shrom then
+                pcall(function()
+                    for i,v in pairs(game:GetService("Workspace").ShroomZone:GetChildren()) do
+                        if v.Name == "MushroomPart" then
+                            v.Parent = game:GetService("ReplicatedStorage")
+                        end
+                    end
+                    for i,v in pairs(game:GetService("Workspace").Map:GetChildren()) do
+                        if v.Name == "Existing" then
+                            v.Parent = game:GetService("ReplicatedStorage")
+                        end
+                    end
+                    for i,v in pairs(game:GetService("Workspace").KillParts:GetChildren()) do
+                        if v.Name == "DamagePart" then
+                            v.Parent = game:GetService("ReplicatedStorage")
+                        end
+                    end
+                end)    
+            notif("Remove Shrooms On")
+        else
+                pcall(function()
+                    for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
+                        if v.Name == "MushroomPart" then
+                            v.Parent = game:GetService("Workspace"):FindFirstChild("ShroomZone")
+                        end
+                    end
+                    for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
+                        if v.Name == "Existing" then
+                            v.Parent = game:GetService("Workspace"):FindFirstChild("Map")
+                        end
+                    end
+                    for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
+                        if v.Name == "DamagePart" then
+                            v.Parent = game:GetService("Workspace").KillParts
+                        end
+                    end
+                end)  
+            notif("Remove Shrooms Off")
+        end
+     end)
+end)
+
 b:Toggle("Remove MoonLight Spots",function(mlight)
     spawn(function()
         if mlight then
@@ -430,37 +476,6 @@ v:Label("",{
     BgColor = Color3.fromRGB(69,69,69); -- Self Explaining
     
 })
-
-v:Button("Kill All",function()
-    spawn(function()
-local newmesag = Instance.new("Message",workspace)
-newmesag.Text = "Make sure to equip a melee (knife for best)"
-task.wait(3)
-newmesag:Destroy()
-end)
-
-for i,v in pairs(game.Players:GetPlayers()) do
-    pcall(function()
-    originposhum = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
-    if v.Character.Name == game.Players.LocalPlayer.Character.Name or v.Character:FindFirstChild("Humanoid").Health <= 0 then
-    
-    else  
-        
-    if v.Character:FindFirstChild("Infected") then
-        
-        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position)
-            for ass = 1,15 do
-                task.wait()
-                game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(v.Character.Head, v.Character.Humanoid)
-                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position)
-            end
-            task.wait(0.3)
-            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(originposhum)
-    end
-    end
-    end)
-end
-end)
 
 v:Toggle("Fast Bat Removal",function(fbat)
     spawn(function()
@@ -532,7 +547,7 @@ v:Toggle("RedBull",function(rbull)
             _G.redbuller = false
             notif("RedBull Off")
         end   
-while _G.redbuller do task.wait(0.3)
+while _G.redbuller do task.wait(0.2)
     
     pcall(function()
 
