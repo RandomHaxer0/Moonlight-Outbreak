@@ -17,6 +17,22 @@ function scrap(text1)
     })
 end
 
+pcall(function()
+_G.killaura = false
+_G.lesscooldown = false
+_G.antigrabbed = false
+_G.autogetbat2 = false
+_G.antifreeze = false
+_G.antifurry = false
+_G.autofastrespawn = false
+_G.godmode2 = false
+_G.fatbatremove = false
+_G.infstamina = false
+_G.nonotifications = false
+_G.redbuller = false
+_G.oneshot = false
+end)
+
 local w = library:CreateWindow("MoonLight OutBreak") -- Creates the window
 
 local b = w:CreateFolder("Toggables")
@@ -92,9 +108,6 @@ godmodeser = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hu
     pcall(function()
     if _G.godmode2 then    
         if newhp <= 99 then
-            if _G.heal3ed then
-            
-            else    
 
             for godmodeez = 1,5 do
                 game:GetService("Players").LocalPlayer.Character.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
@@ -102,11 +115,6 @@ godmodeser = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hu
                 game:GetService("Players").LocalPlayer.Backpack.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
                 game:GetService("Players").LocalPlayer.Backpack.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
             end    
-                _G.heal3ed = true
-                task.wait(0.1)
-                _G.heal3ed = false
-                
-            end
         else
         end    
     else
@@ -168,7 +176,37 @@ while _G.antigrabbed do task.wait()
             end)
         end
     end)
-end)    
+end)   
+
+b:Toggle("1 Shot",function(oshot)
+    spawn(function()
+        if oshot then
+            _G.oneshot = true
+            notif("1 Shot On")
+        else
+            _G.oneshot = false
+            notif("1 Shot Off")
+        end
+        
+local mt = getrawmetatable(game)
+make_writeable(mt)
+
+local namecall = mt.__namecall
+mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...}
+
+    if method == "FireServer" and tostring(self) == "Fire" then
+    if _G.oneshot then  
+        for shot = 1,15 do
+            self.FireServer(self, unpack(args))
+        end    
+    end
+    end
+    return namecall(self, table.unpack(args))
+end)
+end)
+end)
 
 b:Toggle("Auto Get Bat",function(autogetbat)
     spawn(function()
@@ -448,6 +486,35 @@ end)
 end)
 end)
 
+v:Toggle("RedBull",function(rbull)
+    spawn(function()
+        if rbull then
+            _G.redbuller = true
+            notif("RedBull On")
+            spawn(function()
+            local agb = Instance.new("Message",workspace)
+            agb.Text = "Make sure to have a horsepower (red bull) in your backpack"
+            task.wait(3)
+            agb:Destroy()
+            end)
+        else
+            _G.redbuller = false
+            notif("RedBull Off")
+        end   
+while _G.redbuller do task.wait(0.3)
+    
+    pcall(function()
+
+        local ohInstance1 = game:GetService("Players").LocalPlayer
+
+        game:GetService("Players").LocalPlayer.Backpack.Horsepower.Script.used:FireServer(ohInstance1)
+
+    end)
+
+end    
+end)
+end)
+
 v:Button("Fast Respawn",function()
     pcall(function()
         local origin = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
@@ -501,6 +568,22 @@ end)
 c:Button("Bring Footwears",function()
     for i,v in pairs(workspace.SpawnSpots:GetDescendants()) do
 		if v.Name:lower() == "footwear" and v:IsA("BasePart") then
+			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		end
+    end
+end)
+
+c:Button("Bring Scarfs",function()
+    for i,v in pairs(workspace.SpawnSpots:GetDescendants()) do
+		if v.Name:lower() == "scerf" and v:IsA("BasePart") then
+			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		end
+    end
+end)
+
+c:Button("Bring HorsePowers",function()
+    for i,v in pairs(workspace.SpawnSpots:GetDescendants()) do
+		if v.Name:lower() == "horsepower" and v:IsA("BasePart") then
 			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
 		end
     end
