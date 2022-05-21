@@ -30,25 +30,8 @@ b:Label("",{
     
 })
 
-b:Toggle("WhiteList Friends",function(wfriends)
-    spawn(function()
-        if wfriends then
-            _G.frienwhitelist = true
-            notif("WhiteList Friends On")
-        else
-            _G.frienwhitelist = false
-            notif("WhiteList Friends Off")
-        end
-    end)
-end)
-
 b:Toggle("Kill Aura",function(killaura)
     spawn(function()
-        if not _G.killaurafirsttime then
-            notif("If Bat! This will break your bat really quickly so use auto get bat!")
-            _G.killaurafirsttime = true
-        end    
-        
         if killaura then
             _G.killaura = true
             notif("Kill-Aura On")
@@ -64,34 +47,17 @@ while _G.killaura do task.wait()
         
         else 
             
-        if v.Character:FindFirstChild("Infected") then   
-            
-    local lp = game.Players.LocalPlayer
-    local character = v.Character
-    local charactername = v.Name
-    
-    if _G.frienwhitelist then
-	    if v:IsFriendsWith(game:GetService("Players").LocalPlayer.UserId) then
-		    return
-	    else
-	 end       
-        
-        if (lp.Character and lp.Character:FindFirstChild("Head") and character:FindFirstChild("Head")) then
-            local mag = (v.Character.Head.Position - lp.Character.Head.Position).Magnitude
-                  if mag < 15  then
+        if v.Character:FindFirstChild("Infected") then    
 
             local ohInstance1 = v.Character["Head"]
             local ohInstance2 = v.Character.Humanoid
 
             game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
         
-                  end
         end
-	end
         end
-      end
-        end  
-end)
+        end
+    end)
 end
 end)
 end)
@@ -120,10 +86,12 @@ godmodeser = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hu
             
             else    
 
+            for godmodeez = 1,5 do
                 game:GetService("Players").LocalPlayer.Character.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
                 game:GetService("Players").LocalPlayer.Character.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
                 game:GetService("Players").LocalPlayer.Backpack.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
                 game:GetService("Players").LocalPlayer.Backpack.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
+            end    
                 _G.heal3ed = true
                 task.wait(0.1)
                 _G.heal3ed = false
