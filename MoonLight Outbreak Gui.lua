@@ -1,0 +1,437 @@
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AikaV3rm/UiLib/master/Lib.lua')))()
+
+function notif(text)
+	game.StarterGui:SetCore("SendNotification", {
+    Title = "This Script";
+    Text = text;
+    Icon = "rbxassetid://4452245157";
+    Duration = 7;
+    })
+end
+function scrap(text1)
+	game.StarterGui:SetCore("SendNotification", {
+    Title = "";
+    Text = text1;
+    Icon = "";
+    Duration = 5;
+    })
+end
+
+local w = library:CreateWindow("MoonLight OutBreak") -- Creates the window
+
+local b = w:CreateFolder("Toggables")
+local v = w:CreateFolder("Misc")
+local c = w:CreateFolder("Bringers")
+
+b:Label("",{
+    TextSize = 25; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining
+    
+})
+
+b:Toggle("Kill Aura",function(killaura)
+    spawn(function()
+        if not _G.killaurafirsttime then
+            notif("If Bat! This will break your bat really quickly so use auto get bat!")
+            _G.killaurafirsttime = true
+        end    
+        
+        if killaura then
+            _G.killaura = true
+            notif("Kill-Aura On")
+        else
+            _G.killaura = false
+            notif("Kill-Aura Off")
+        end
+while _G.killaura do task.wait()
+    pcall(function()
+        for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+
+        if v.Character.Name == game.Players.LocalPlayer.Character.Name or v.Character:FindFirstChild("Humanoid").Health == 0 then
+        
+        else 
+            
+        if v.Character:FindFirstChild("Infected") then    
+
+            local ohInstance1 = v.Character["Head"]
+            local ohInstance2 = v.Character.Humanoid
+
+            game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
+        
+        end
+        end
+        end
+    end)
+end
+end)
+end)
+
+b:Toggle("GodMode",function(gmode)
+    spawn(function()
+        if gmode then
+            _G.godmode2 = true
+            notif("GodMode On")
+        else
+            _G.godmode2 = false
+            notif("GodMode Off")
+        end
+local godmodeser
+godmodeser = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid").HealthChanged:Connect(function(newhp)
+    pcall(function()
+    if _G.godmode2 then    
+        if newhp <= 99 then
+            if _G.heal3ed then
+            
+            else    
+            if game:GetService("Players").LocalPlayer.Character:FindFirstChild("SoSoda") then
+                game:GetService("Players").LocalPlayer.Character.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
+                _G.heal3ed = true
+                task.wait(0.2)
+                _G.heal3ed = false
+            elseif game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("SoSoda") then
+                game:GetService("Players").LocalPlayer.Backpack.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
+                _G.heal3ed = true
+                task.wait(0.2)
+                _G.heal3ed = false
+            elseif not game:GetService("Players").LocalPlayer.Character:FindFirstChild("SoSoda") or not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("SoSoda") then
+                local newmsg = Instance.new("Message",workspace)
+                newmsg.Text = "Get A SoSoda (Healing Can) First!"
+                task.wait(3)
+                newmsg:Destroy()
+            end
+            end
+        else
+        end    
+    else
+        godmodeser:Disconnect()
+    end
+end)    
+end)    
+end)
+end)
+
+b:Toggle("Auto Get Bat",function(autogetbat)
+    spawn(function()
+        if autogetbat then
+            _G.autogetbat2 = true
+            notif("Auto Get Bat On")
+        else
+            _G.autogetbat2 = false
+            notif("Auto Get Bat Off")
+        end
+    while _G.autogetbat2 do task.wait()
+        pcall(function()
+    
+            if not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Bat") or not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat") then
+                fireclickdetector(game:GetService("Workspace").Stations["Batstation V2"].Detector.ClickDetector)
+            end    
+    
+        end)
+    
+    end
+    end)
+end)
+
+b:Toggle("Anti Freeze",function(antifrez)
+    spawn(function()
+        if antifrez then
+            _G.antifreeze = true
+            notif("Anti Freeze On")
+        else
+            _G.antifreeze = false
+            notif("Anti Freeze Off")
+        end
+while _G.antifreeze do task.wait()
+    pcall(function()
+    if _G.antifreeze then
+        game:GetService("Players").LocalPlayer.Character.Freeze.FreezePoints.Value = 0
+    else
+        game:GetService("Players").LocalPlayer.Character.Freeze.FreezePoints.Value = 0
+    end
+    end)
+    end
+end)
+end)
+
+b:Toggle("Inf Stamina",function(infstam)
+    spawn(function()
+        if infstam then
+            _G.infstamina = true
+            notif("Inf Stamina On")
+        else
+            _G.infstamina = false
+            notif("Inf Stamina Off")
+        end
+while _G.infstamina do task.wait()
+    pcall(function()
+        if _G.infstamina then
+            game:GetService("Players").LocalPlayer.Character.Stamina.Value = 100
+        else
+        end
+    end)    
+end 
+end)
+end)
+
+b:Toggle("Anti Furry",function(antifur)
+    spawn(function()
+        if antifur then
+            _G.antifurry = true
+            notif("Anti Furry On")
+        else
+            _G.antifurry = false
+            notif("Anti Furry Off")
+        end
+    if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Infected") then
+        pcall(function()
+            local origin = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
+            game:GetService("Players").LocalPlayer.Character:BreakJoints()
+            game:GetService("Players").LocalPlayer.Character.Head:Destroy()
+            game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0
+            repeat task.wait() until game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head")
+            task.wait(0.2)
+            game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(origin)
+        end)
+    end
+    end)
+end)
+
+b:Toggle("Auto Fast Respawn",function(autofspawn)
+    spawn(function()
+        if autofspawn then
+            _G.autofastrespawn = true
+            notif("Auto Fast Respawn On")
+        else
+            _G.autofastrespawn = false
+            notif("Auto Fast Respawn Off")
+        end
+    while _G.autofastrespawn do task.wait()
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid").Health <= 0 then
+            pcall(function()
+                local origin = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
+                game:GetService("Players").LocalPlayer.Character:BreakJoints()
+                game:GetService("Players").LocalPlayer.Character.Head:Destroy()
+                game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0
+                repeat task.wait() until game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head")
+                task.wait(0.2)
+                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(origin)
+            end)  
+        end
+    end
+end)
+end)
+
+b:Toggle("Anti Water",function(awater)
+    spawn(function()
+        if awater then
+            local partfolder = Instance.new("Folder",game.Workspace)
+            local part1 = Instance.new("Part",partfolder)
+            local part2 = Instance.new("Part",partfolder)
+            local part3 = Instance.new("Part",partfolder)
+            local part4 = Instance.new("Part",partfolder)
+            wait()
+            part1.Anchored = true
+            part2.Anchored = true
+            part3.Anchored = true
+            part4.Anchored = true
+            wait()
+            part1.Transparency = 1
+            part2.Transparency = 1
+            part3.Transparency = 1
+            part4.Transparency = 1
+            wait()
+            part1.Orientation = Vector3.new(0,0,0)
+            part2.Orientation = Vector3.new(0,0,0)
+            part3.Orientation = Vector3.new(0,0,0)
+            part4.Orientation = Vector3.new(0,0,0)
+            wait()
+            part1.Position = Vector3.new(-198.632217, -9.48843193, -142.13028, 1, -8.63220121e-05, -8.63220121e-05, 8.63220121e-05, 1, -3.72574505e-09, 8.63220121e-05, -3.72574505e-09, 1)
+            part1.Size = Vector3.new(22.7528, 14.8273, 24.2291)
+            part2.Position = Vector3.new(111.734543, 0.629862309, 163.926758, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            part2.Size = Vector3.new(94.3203, 2.31979, 96.5385)
+            part3.Position = Vector3.new(54.8345795, 0.629862309, 592.376709, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            part3.Size = Vector3.new(297.92, 2.31979, 291.439)
+            part4.Position = Vector3.new(60.7345657, 0.629862309, 329.476746, 1, 0, 0, 0, 1, 0, 0, 0, 1)
+            part4.Size = Vector3.new(157.32, 2.31979, 234.639)
+
+            for i,v in pairs(game.Workspace.AquaticInfectParts:GetChildren()) do
+                if v.Name == "WaterBrick" then
+                    v.Parent = game.ServerStorage
+                end    
+            end 
+        else    
+            for i,v in pairs(game.ServerStorage:GetChildren()) do
+                if v.Name == "WaterBrick" then
+                    v.Parent = game:GetService("Workspace").AquaticInfectParts
+                end    
+            end    
+            
+            workspace.Folder:Destroy()
+        end
+    end)
+end)
+
+b:Toggle("Less Cooldown",function(lesscd)
+    spawn(function()
+        if lesscd then
+            _G.lesscooldown = true
+            notif("Less Cooldown On")
+        else
+            _G.lesscooldown = false
+            notif("Less Cooldown Off")
+        end
+    local lesscdser
+    lesscdser = game:GetService("RunService").RenderStepped:Connect(function()
+        if _G.lesscooldown then
+            pcall(function()
+                game:GetService("Players").LocalPlayer.Character:FindFirstChild("Active"):Destroy()
+            end)
+        else
+            lesscdser:Disconnect()
+        end    
+    end)
+end)
+end)
+
+b:Toggle("Remove MoonLight Spots",function(mlight)
+    spawn(function()
+        if mlight then
+                pcall(function()
+                    for i,v in pairs(game:GetService("Workspace").MoonlightParts:GetChildren()) do
+                        if v.Name == "MoonlightParts" then
+                            v.Parent = game:GetService("ReplicatedStorage")
+                        end
+                    end
+                end)    
+            notif("Remove MoonLight Spots On")
+        else
+                pcall(function()
+                    for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
+                        if v.Name == "MoonlightParts" then
+                            v.Parent = game:GetService("Workspace"):FindFirstChild("MoonlightParts")
+                        end
+                    end
+                end)  
+            notif("Remove MoonLight Spots Off")
+        end
+    end)
+end)
+        
+b:Label("Destroy Gui",{
+    TextSize = 25; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining
+    
+})
+
+b:DestroyGui()
+
+v:Label("",{
+    TextSize = 25; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining
+    
+})
+
+v:Toggle("Fast Bat Removal",function(fbat)
+    spawn(function()
+        if fbat then
+            _G.fatbatremove = true
+            notif("Faster Bat Removal On")
+        else
+            _G.fatbatremove = false
+            notif("Faster Bat Removal Off")
+        end
+    while _G.fatbatremove do task.wait()
+        pcall(function()
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool").Name == "Bat" then
+            if game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat").DurabilityNum.Value == 0 then
+               game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat").Parent = game.Players.LocalPlayer.Backpack
+               game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Bat"):Destroy()
+            end
+        end
+        end)
+    end
+end)
+end)
+
+v:Toggle("Anti Notifications",function(anotif)
+    spawn(function()
+        if anotif then
+            _G.nonotifications = true
+            notif("Anti Notifications On")
+        else
+            _G.nonotifications = false
+            notif("Anti Notifications Off")
+        end
+local runsernotifa 
+runsernotifa = game:GetService("RunService").RenderStepped:Connect(function()
+    pcall(function()
+    if _G.nonotifications then
+        game:GetService("Players").LocalPlayer.PlayerGui.Menu.MoveUp:Destroy()
+    else
+        runsernotifa:Disconnect()
+    end    
+    end)
+end)    
+end)
+end)
+
+v:Button("Fast Respawn",function()
+    pcall(function()
+        local origin = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
+        game:GetService("Players").LocalPlayer.Character:BreakJoints()
+        game:GetService("Players").LocalPlayer.Character.Head:Destroy()
+        game:GetService("Players").LocalPlayer.Character.Humanoid.Health = 0
+        repeat task.wait() until game:GetService("Players").LocalPlayer.Character:FindFirstChild("Head")
+        task.wait(0.2)
+        game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(origin)
+    end)    
+end)
+
+v:Label("Destroy Gui",{
+    TextSize = 25; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining
+})
+
+v:DestroyGui()
+
+c:Label("",{
+    TextSize = 25; -- Self Explaining
+    TextColor = Color3.fromRGB(255,255,255); -- Self Explaining
+    BgColor = Color3.fromRGB(69,69,69); -- Self Explaining
+})
+
+c:Button("Bring Knifes",function()
+    for i,v in pairs(workspace.SpawnSpots:GetDescendants()) do
+		if v.Name:lower() == "knife" and v:IsA("BasePart") then
+			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		end
+    end
+end)
+
+c:Button("Bring Healing Cans",function()
+    for i,v in pairs(workspace.SpawnSpots:GetDescendants()) do
+		if v.Name:lower() == "sosoda" and v:IsA("BasePart") then
+			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		end
+    end
+end)
+
+c:Button("Bring Blindfolds",function()
+    for i,v in pairs(workspace.SpawnSpots:GetDescendants()) do
+		if v.Name:lower() == "blindfold" and v:IsA("BasePart") then
+			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		end
+    end
+end)
+
+c:Button("Bring Footwears",function()
+    for i,v in pairs(workspace.SpawnSpots:GetDescendants()) do
+		if v.Name:lower() == "footwear" and v:IsA("BasePart") then
+			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+		end
+    end
+end)
