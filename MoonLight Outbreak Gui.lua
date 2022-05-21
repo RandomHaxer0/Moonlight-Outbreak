@@ -30,6 +30,18 @@ b:Label("",{
     
 })
 
+b:Toggle("WhiteList Friends",function(wfriends)
+    spawn(function()
+        if wfriends then
+            _G.frienwhitelist = true
+            notif("WhiteList Friends On")
+        else
+            _G.frienwhitelist = false
+            notif("WhiteList Friends Off")
+        end
+    end)
+end)
+
 b:Toggle("Kill Aura",function(killaura)
     spawn(function()
         if not _G.killaurafirsttime then
@@ -52,17 +64,34 @@ while _G.killaura do task.wait()
         
         else 
             
-        if v.Character:FindFirstChild("Infected") then    
+        if v.Character:FindFirstChild("Infected") then   
+            
+    local lp = game.Players.LocalPlayer
+    local character = v.Character
+    local charactername = v.Name
+    
+    if _G.frienwhitelist then
+	    if v:IsFriendsWith(game:GetService("Players").LocalPlayer.UserId) then
+		    return
+	    else
+	 end       
+        
+        if (lp.Character and lp.Character:FindFirstChild("Head") and character:FindFirstChild("Head")) then
+            local mag = (v.Character.Head.Position - lp.Character.Head.Position).Magnitude
+                  if mag < 15  then
 
             local ohInstance1 = v.Character["Head"]
             local ohInstance2 = v.Character.Humanoid
 
             game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
         
+                  end
         end
+	end
         end
-        end
-    end)
+      end
+        end  
+end)
 end
 end)
 end)
@@ -72,6 +101,12 @@ b:Toggle("GodMode",function(gmode)
         if gmode then
             _G.godmode2 = true
             notif("GodMode On")
+            spawn(function()
+                local newmsg = Instance.new("Message",workspace)
+                newmsg.Text = "Make sure to have a sosoda (healing can)"
+                task.wait(3)
+                newmsg:Destroy()
+            end)    
         else
             _G.godmode2 = false
             notif("GodMode Off")
@@ -84,22 +119,15 @@ godmodeser = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Hu
             if _G.heal3ed then
             
             else    
-            if game:GetService("Players").LocalPlayer.Character:FindFirstChild("SoSoda") then
+
                 game:GetService("Players").LocalPlayer.Character.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
-                _G.heal3ed = true
-                task.wait(0.2)
-                _G.heal3ed = false
-            elseif game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("SoSoda") then
+                game:GetService("Players").LocalPlayer.Character.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
+                game:GetService("Players").LocalPlayer.Backpack.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
                 game:GetService("Players").LocalPlayer.Backpack.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
                 _G.heal3ed = true
-                task.wait(0.2)
+                task.wait(0.1)
                 _G.heal3ed = false
-            elseif not game:GetService("Players").LocalPlayer.Character:FindFirstChild("SoSoda") or not game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("SoSoda") then
-                local newmsg = Instance.new("Message",workspace)
-                newmsg.Text = "Get A SoSoda (Healing Can) First!"
-                task.wait(3)
-                newmsg:Destroy()
-            end
+                
             end
         else
         end    
@@ -110,6 +138,55 @@ end)
 end)    
 end)
 end)
+
+b:Toggle("Anti Grabbed",function(agrabbed)
+    spawn(function()
+        if agrabbed then
+            _G.antigrabbed = true
+            notif("Anti Grabbed On")
+        else
+            _G.antigrabbed = false
+            notif("Anti Grabbed Off")
+        end
+while _G.antigrabbed do task.wait()
+    pcall(function()
+        if game:GetService("Players").LocalPlayer.Character.Struggling.Value == true then
+            if not game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat") then
+                if game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Bat") then
+                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid"):EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Bat"))
+                    for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+                        local ohInstance1 = v.Character["Head"]
+                        local ohInstance2 = v.Character.Humanoid
+
+                        game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
+                    end    
+                    game:GetService("Players").LocalPlayer.Character.Struggling.Value = false
+                end   
+                else
+                    fireclickdetector(game:GetService("Workspace").Stations["Batstation V2"].Detector.ClickDetector)
+                    task.wait(0.2)
+                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid"):EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("Bat"))
+                    for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+                        local ohInstance1 = v.Character["Head"]
+                        local ohInstance2 = v.Character.Humanoid
+
+                        game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
+                    end  
+                    game:GetService("Players").LocalPlayer.Character.Struggling.Value = false
+                end
+                elseif game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat") then
+                    for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+                        local ohInstance1 = v.Character["Head"]
+                        local ohInstance2 = v.Character.Humanoid
+
+                        game:GetService("Players").LocalPlayer.Character:FindFirstChild("Bat"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
+                    end    
+                    game:GetService("Players").LocalPlayer.Character.Struggling.Value = false
+                end
+            end)
+        end
+    end)
+end)    
 
 b:Toggle("Auto Get Bat",function(autogetbat)
     spawn(function()
@@ -354,6 +431,17 @@ v:Toggle("Fast Bat Removal",function(fbat)
         end)
     end
 end)
+end)
+
+v:Slider("Speed",{
+    min = 16;
+    max = 250;
+    precise = true;
+},function(value)
+
+
+   game:GetService("Players").LocalPlayer.Character.Humanoid.WalkSpeed = tonumber(value)
+
 end)
 
 v:Toggle("Anti Notifications",function(anotif)
