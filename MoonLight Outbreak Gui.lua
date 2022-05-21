@@ -393,50 +393,6 @@ b:Toggle("Less Cooldown",function(lesscd)
 end)
 end)
 
-b:Toggle("Remove Shrooms",function(shrom)
-     spawn(function()
-        if shrom then
-                pcall(function()
-                    for i,v in pairs(game:GetService("Workspace").ShroomZone:GetChildren()) do
-                        if v.Name == "MushroomPart" then
-                            v.Parent = game:GetService("ReplicatedStorage")
-                        end
-                    end
-                    for i,v in pairs(game:GetService("Workspace").Map:GetChildren()) do
-                        if v.Name == "Existing" then
-                            v.Parent = game:GetService("ReplicatedStorage")
-                        end
-                    end
-                    for i,v in pairs(game:GetService("Workspace").KillParts:GetChildren()) do
-                        if v.Name == "DamagePart" then
-                            v.Parent = game:GetService("ReplicatedStorage")
-                        end
-                    end
-                end)    
-            notif("Remove Shrooms On")
-        else
-                pcall(function()
-                    for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
-                        if v.Name == "MushroomPart" then
-                            v.Parent = game:GetService("Workspace"):FindFirstChild("ShroomZone")
-                        end
-                    end
-                    for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
-                        if v.Name == "Existing" then
-                            v.Parent = game:GetService("Workspace"):FindFirstChild("Map")
-                        end
-                    end
-                    for i,v in pairs(game:GetService("ReplicatedStorage"):GetChildren()) do
-                        if v.Name == "DamagePart" then
-                            v.Parent = game:GetService("Workspace").KillParts
-                        end
-                    end
-                end)  
-            notif("Remove Shrooms Off")
-        end
-     end)
-end)
-
 b:Toggle("Remove MoonLight Spots",function(mlight)
     spawn(function()
         if mlight then
