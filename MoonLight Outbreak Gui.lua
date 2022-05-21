@@ -431,6 +431,37 @@ v:Label("",{
     
 })
 
+v:Button("Kill All",function()
+    spawn(function()
+local newmesag = Instance.new("Message",workspace)
+newmesag.Text = "Make sure to equip a melee (knife for best)"
+task.wait(3)
+newmesag:Destroy()
+end)
+
+for i,v in pairs(game.Players:GetPlayers()) do
+    pcall(function()
+    originposhum = game.Players.LocalPlayer.Character.HumanoidRootPart.Position
+    if v.Character.Name == game.Players.LocalPlayer.Character.Name or v.Character:FindFirstChild("Humanoid").Health <= 0 then
+    
+    else  
+        
+    if v.Character:FindFirstChild("Infected") then
+        
+        game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position)
+            for ass = 1,15 do
+                task.wait()
+                game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(v.Character.Head, v.Character.Humanoid)
+                game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position)
+            end
+            task.wait(0.3)
+            game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(originposhum)
+    end
+    end
+    end)
+end
+end)
+
 v:Toggle("Fast Bat Removal",function(fbat)
     spawn(function()
         if fbat then
