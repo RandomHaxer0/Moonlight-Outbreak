@@ -18,6 +18,8 @@ function scrap(text1)
 end
 
 pcall(function()
+_G.antiarcticfreeze = false
+_G.antifruit = false
 _G.killaura = false
 _G.lesscooldown = false
 _G.antigrabbed = false
@@ -90,38 +92,47 @@ end)
 
 b:Toggle("GodMode",function(gmode)
     spawn(function()
+        if not _G.godmodefirsttime then
+            spawn(function()
+                _G.godmodefirsttime = true
+                local newgodmsg = Instance.new("Message",workspace)
+                newgodmsg.Text = "Make sure to have a SoSoda (healing can)"
+                task.wait(3)
+                newgodmsg:Destroy()
+            end)
+        end    
         if gmode then
             _G.godmode2 = true
             notif("GodMode On")
-            spawn(function()
-                local newmsg = Instance.new("Message",workspace)
-                newmsg.Text = "Make sure to have a sosoda (healing can)"
-                task.wait(3)
-                newmsg:Destroy()
-            end)    
         else
             _G.godmode2 = false
             notif("GodMode Off")
         end
-local godmodeser
-godmodeser = game:GetService("Players").LocalPlayer.Character:FindFirstChild("Humanoid").HealthChanged:Connect(function(newhp)
+while _G.godmode2 do task.wait()
     pcall(function()
-    if _G.godmode2 then    
-        if newhp <= 99 then
+        
+        if game:GetService("Players").LocalPlayer.Character.Humanoid.Health <= 99 then
+    
+            pcall(function()
+                if game:GetService("Players").LocalPlayer.Character:FindFirstChild("SoSoda") then
+                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("SoSoda"):FindFirstChild("Script"):FindFirstChild("used"):FireServer(game:GetService("Players").LocalPlayer)
+                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("SoSoda"):FindFirstChild("Script"):FindFirstChild("used"):FireServer(game:GetService("Players").LocalPlayer)
+                    game:GetService("Players").LocalPlayer.Character:FindFirstChild("SoSoda"):FindFirstChild("Script"):FindFirstChild("used"):FireServer(game:GetService("Players").LocalPlayer)
+                    wait(0.5)
+                else
+                    game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("SoSoda"):FindFirstChild("Script"):FindFirstChild("used"):FireServer(game:GetService("Players").LocalPlayer)
+                    game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("SoSoda"):FindFirstChild("Script"):FindFirstChild("used"):FireServer(game:GetService("Players").LocalPlayer)
+                    game:GetService("Players").LocalPlayer.Backpack:FindFirstChild("SoSoda"):FindFirstChild("Script"):FindFirstChild("used"):FireServer(game:GetService("Players").LocalPlayer)
+                    wait(0.5)
+                end    
+            end)
 
-            for godmodeez = 1,5 do
-                game:GetService("Players").LocalPlayer.Character.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
-                game:GetService("Players").LocalPlayer.Character.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
-                game:GetService("Players").LocalPlayer.Backpack.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
-                game:GetService("Players").LocalPlayer.Backpack.SoSoda.Script.used:FireServer(game:GetService("Players").LocalPlayer)
-            end    
-        else
-        end    
-    else
-        godmodeser:Disconnect()
-    end
-end)    
-end)    
+            wait(0.5)
+                
+        end        
+
+    end)
+end       
 end)
 end)
 
@@ -371,6 +382,63 @@ b:Toggle("Anti Water",function(awater)
     end)
 end)
 
+b:Toggle("Anti Freeze Infect",function(afreezeinf)
+    spawn(function()
+        if afreezeinf then
+            _G.antiarcticfreeze = true
+            notif("Anti Freeze Infect On")
+        else
+            _G.antiarcticfreeze = false
+            notif("Anti Freeze Infect Off")
+        end
+    local mt = getrawmetatable(game)
+make_writeable(mt)
+
+local namecall = mt.__namecall
+mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...}
+
+    if method == "FireServer" and tostring(self) == "ArcticFreeze" then
+        if _G.antiarcticfreeze then
+            return
+        end   
+    end
+    return namecall(self, table.unpack(args))
+end)
+end)
+end)
+
+b:Toggle("Anti Fruit Infect",function(afruitinf)
+    spawn(function()
+        if afruitinf then
+            _G.antifruit = true
+            notif("Anti Fruit Infect On")
+        else
+            _G.antifruit = false
+            notif("Anti Fruit Infect Off")
+        end
+
+local mt = getrawmetatable(game)
+make_writeable(mt)
+
+local namecall = mt.__namecall
+mt.__namecall = newcclosure(function(self, ...)
+    local method = getnamecallmethod()
+    local args = {...}
+
+    if method == "FireServer" and tostring(self) == "used" then
+        if _G.antifruit then
+            if self.Parent.Name == "Script" and self.Parent.Parent.Name == "Fruit" then
+                return self.Parent.Parent:Destroy()
+            end    
+        end   
+    end
+    return namecall(self, table.unpack(args))
+end)
+end)
+end)
+
 b:Toggle("Less Cooldown",function(lesscd)
     spawn(function()
         if lesscd then
@@ -517,6 +585,57 @@ end
 end)
 end)
 
+v:Button("Kill All",function()
+    pcall(function()
+            if not _G.killallfirsttime2 then
+        _G.killallfirsttime2 = true
+        newkillallmsg = Instance.new("Message",workspace)
+        newkillallmsg.Text = "Make sure to have a melee equipped"
+        task.wait(3)
+        newkillallmsg:Destroy()
+        return
+    end
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire") then
+    if not _G.killallfirsttime then
+        _G.killallfirsttime = true
+        newkillallmsg = Instance.new("Message",workspace)
+        newkillallmsg.Text = "Its recomended to use remove moonlight spots and anti water! (run kill all again)"
+        task.wait(3)
+        newkillallmsg:Destroy()
+        return
+    end
+   
+
+originpos = game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
+
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+    pcall(function()
+    if v.Character:FindFirstChild("Infected") then
+        if v.Character:FindFirstChild("Humanoid").Health <= 0 or v.Character:FindFirstChild("ForceField") then
+            
+        else    
+        if v.Character:FindFirstChild("Humanoid").Health <= 100 then
+            for asscheeks = 1,15 do
+                task.wait()
+                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,3,7))
+                local ohInstance1 = v.Character["Head"]
+                local ohInstance2 = v.Character.Humanoid
+
+                game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
+            end
+            game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(originpos)
+        end
+    end
+end
+end)
+end
+else
+notif("Equip a weapon")
+end  
+end)
+end)
+
+
 v:Button("Fast Respawn",function()
     pcall(function()
         local origin = game:GetService("Players").LocalPlayer.Character.HumanoidRootPart.Position
@@ -554,7 +673,7 @@ end)
 c:Button("Bring Healing Cans",function()
     for i,v in pairs(workspace.SpawnSpots:GetDescendants()) do
 		if v.Name:lower() == "sosoda" and v:IsA("BasePart") then
-			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame+Vector3.new(0,0,3)
 		end
     end
 end)
@@ -578,7 +697,7 @@ end)
 c:Button("Bring Scarfs",function()
     for i,v in pairs(workspace.SpawnSpots:GetDescendants()) do
 		if v.Name:lower() == "scerf" and v:IsA("BasePart") then
-			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame+Vector3.new(0,0,3)
 		end
     end
 end)
@@ -586,7 +705,7 @@ end)
 c:Button("Bring HorsePowers",function()
     for i,v in pairs(workspace.SpawnSpots:GetDescendants()) do
 		if v.Name:lower() == "horsepower" and v:IsA("BasePart") then
-			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
+			v.CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame+Vector3.new(0,0,3)
 		end
     end
 end)
