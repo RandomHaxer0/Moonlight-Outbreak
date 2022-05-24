@@ -116,6 +116,7 @@ b:Toggle("Esp",function(fesp)
         end
 
 while _G.furryesp do task.wait(0.3)
+    pcall(function()
 for i,v in pairs(game:GetService("Players"):GetPlayers()) do
     if v.Character:FindFirstChild("Chammed") then
         
@@ -133,8 +134,9 @@ for i,v in pairs(game:GetService("Players"):GetPlayers()) do
     end
     end
 end
+end)
 end
-end)   
+end)
 end)
 end)
 
