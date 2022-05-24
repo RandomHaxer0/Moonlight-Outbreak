@@ -2,6 +2,9 @@ pcall(function()
 if thing then
     thing:Disconnect()
 end    
+if game:GetService("Workspace"):FindFirstChild("Folder") then
+    game:GetService("Workspace"):FindFirstChild("Folder"):Destroy()
+end    
 _G.killsay = false
 _G.antiarcticfreeze = false
 _G.antifruit = false
@@ -91,6 +94,47 @@ while _G.killaura do task.wait()
         end
     end)
 end
+end)
+end)
+
+b:Toggle("Esp",function(fesp)
+    spawn(function()
+                pcall(function()
+            if not _G.furryespfirsttime then
+                local furryespnewmsgft = Instance.new("Message",workspace)
+                furryespnewmsgft.Text = "This is only for furrys!"
+                task.wait(3)
+                furryespnewmsgft:Destroy()
+            end
+        
+        if fesp then
+            _G.furryesp = true
+            notif("Furry Esp On")
+        else
+            _G.furryesp = false
+            notif("Furry Esp Off")
+        end
+
+while _G.furryesp do task.wait(0.3)
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+    if v.Character:FindFirstChild("Chammed") then
+        
+    else    
+    if v.Character:FindFirstChild("Infected") then
+        local mode = Instance.new("Model",v.Character)
+        mode.Name = "Chammed"
+        Instance.new("Highlight",v.Character["Right Leg"])
+        Instance.new("Highlight",v.Character["Right Arm"])
+        Instance.new("Highlight",v.Character["Left Leg"])
+        Instance.new("Highlight",v.Character["Left Arm"])
+        Instance.new("Highlight",v.Character["Head"])
+        Instance.new("Highlight",v.Character["Torso"])
+        print("Chammed "..v.Character.Name.."")
+    end
+    end
+end
+end
+end)   
 end)
 end)
 
@@ -649,7 +693,7 @@ for i,v in pairs(game:GetService("Players"):GetPlayers()) do
         else    
         if v.Character:FindFirstChild("Humanoid").Health <= 100 then
             game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
-            for asscheeks = 1,15 do
+            for asscheeks = 1,20 do
                 task.wait()
                 game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,3,3))
                 local ohInstance1 = v.Character["Head"]
