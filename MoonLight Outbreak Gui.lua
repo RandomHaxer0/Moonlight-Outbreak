@@ -648,9 +648,10 @@ for i,v in pairs(game:GetService("Players"):GetPlayers()) do
             
         else    
         if v.Character:FindFirstChild("Humanoid").Health <= 100 then
+            game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
             for asscheeks = 1,15 do
                 task.wait()
-                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,3,5))
+                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,3,3))
                 local ohInstance1 = v.Character["Head"]
                 local ohInstance2 = v.Character.Humanoid
 
