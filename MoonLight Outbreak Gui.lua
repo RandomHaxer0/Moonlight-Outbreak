@@ -1,22 +1,3 @@
-local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AikaV3rm/UiLib/master/Lib.lua')))()
-
-function notif(text)
-	game.StarterGui:SetCore("SendNotification", {
-    Title = "This Script";
-    Text = text;
-    Icon = "rbxassetid://4452245157";
-    Duration = 7;
-    })
-end
-function scrap(text1)
-	game.StarterGui:SetCore("SendNotification", {
-    Title = "";
-    Text = text1;
-    Icon = "";
-    Duration = 5;
-    })
-end
-
 pcall(function()
 if thing then
     thing:Disconnect()
@@ -38,6 +19,25 @@ _G.nonotifications = false
 _G.redbuller = false
 _G.oneshot = false
 end)
+
+local library = loadstring(game:HttpGet(('https://raw.githubusercontent.com/AikaV3rm/UiLib/master/Lib.lua')))()
+
+function notif(text)
+	game.StarterGui:SetCore("SendNotification", {
+    Title = "This Script";
+    Text = text;
+    Icon = "rbxassetid://4452245157";
+    Duration = 7;
+    })
+end
+function scrap(text1)
+	game.StarterGui:SetCore("SendNotification", {
+    Title = "";
+    Text = text1;
+    Icon = "";
+    Duration = 5;
+    })
+end
 
 local w = library:CreateWindow("MoonLight OutBreak") -- Creates the window
 
