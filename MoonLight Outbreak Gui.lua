@@ -18,6 +18,10 @@ function scrap(text1)
 end
 
 pcall(function()
+if thing then
+    thing:Disconnect()
+end    
+_G.killsay = false
 _G.antiarcticfreeze = false
 _G.antifruit = false
 _G.killaura = false
@@ -382,6 +386,35 @@ b:Toggle("Anti Water",function(awater)
     end)
 end)
 
+b:Toggle("Kill Say",function(bool8)
+    spawn(function()
+        if bool8 then
+            _G.killsay = true
+            notif("Kill Say On")
+        else
+            _G.killsay = false
+            notif("Kill Say Off")
+        end
+ 
+local Value = game:GetService("Players").LocalPlayer.Character.Killstreak
+local thing
+thing = Value.Changed:Connect(function()
+if _G.killsay then
+local killsaywords = {
+    "🤓🤓🤓Imagine dying💀💀💀 to me🤣🤣🤣",
+    "💀💀💀Bro got KOed🤣🤣🤣",
+    "🤓🤓🤓Another kill🤣🤣🤣 to my killstreak😃😃😃",
+    "🤣🤣🤣How do i change my difficulty🤓🤓🤓i feel like im on the child difficulty💀💀💀"
+}
+
+game.ReplicatedStorage.DefaultChatSystemChatEvents.SayMessageRequest:FireServer(killsaywords[math.random(#killsaywords)], "All")
+else
+    thing:Disconnect()
+end
+end)  
+end)
+end)
+
 b:Toggle("Anti Freeze Infect",function(afreezeinf)
     spawn(function()
         if afreezeinf then
@@ -589,10 +622,10 @@ v:Button("Kill All",function()
     pcall(function()
             if not _G.killallfirsttime2 then
         _G.killallfirsttime2 = true
-        newkillallmsg = Instance.new("Message",workspace)
-        newkillallmsg.Text = "Make sure to have a melee equipped"
+        newkillall2msg = Instance.new("Message",workspace)
+        newkillall2msg.Text = "Make sure to have a melee equipped"
         task.wait(3)
-        newkillallmsg:Destroy()
+        newkillall2msg:Destroy()
         return
     end
         if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire") then
@@ -600,7 +633,7 @@ v:Button("Kill All",function()
         _G.killallfirsttime = true
         newkillallmsg = Instance.new("Message",workspace)
         newkillallmsg.Text = "Its recomended to use remove moonlight spots and anti water! (run kill all again)"
-        task.wait(3)
+        task.wait(5)
         newkillallmsg:Destroy()
         return
     end
@@ -617,7 +650,7 @@ for i,v in pairs(game:GetService("Players"):GetPlayers()) do
         if v.Character:FindFirstChild("Humanoid").Health <= 100 then
             for asscheeks = 1,15 do
                 task.wait()
-                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,3,7))
+                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,3,5))
                 local ohInstance1 = v.Character["Head"]
                 local ohInstance2 = v.Character.Humanoid
 
