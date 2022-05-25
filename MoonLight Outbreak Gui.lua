@@ -1,7 +1,4 @@
 pcall(function()
-if thing then
-    thing:Disconnect()
-end    
 if game:GetService("Workspace"):FindFirstChild("Folder") then
     game:GetService("Workspace"):FindFirstChild("Folder"):Destroy()
 end    
@@ -693,7 +690,7 @@ for i,v in pairs(game:GetService("Players"):GetPlayers()) do
         if v.Character:FindFirstChild("Humanoid").Health <= 0 or v.Character:FindFirstChild("ForceField") then
             
         else    
-        if v.Character:FindFirstChild("Humanoid").Health <= 100 then
+        if v.Character:FindFirstChild("Humanoid").Health <= 200 then
             game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
             for asscheeks = 1,20 do
                 task.wait()
