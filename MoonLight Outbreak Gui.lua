@@ -661,6 +661,73 @@ end
 end)
 end)
 
+v:Toggle("Loop Kill All",function(loopkall)
+    spawn(function()
+        if loopkall then
+            _G.killalllooper = true
+            notif("Loop Kill All On")
+        else
+            _G.killalllooper = false
+            notif("Loop Kill All Off")
+        end
+            pcall(function()
+            if not _G.killallfirsttime2 then
+        _G.killallfirsttime2 = true
+        newkillall2msg = Instance.new("Message",workspace)
+        newkillall2msg.Text = "Make sure to have a melee equipped"
+        task.wait(3)
+        newkillall2msg:Destroy()
+        return
+    end
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
+            if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire") then
+    if not _G.killallfirsttime then
+        _G.killallfirsttime = true
+        newkillallmsg = Instance.new("Message",workspace)
+        newkillallmsg.Text = "Its recomended to use remove moonlight spots and anti water! (run kill all again)"
+        task.wait(5)
+        newkillallmsg:Destroy()
+        return
+    end
+   
+while _G.killalllooper do task.wait(5)  
+
+originpos = game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").Position
+
+for i,v in pairs(game:GetService("Players"):GetPlayers()) do
+    pcall(function()
+    if v.Character:FindFirstChild("Infected") then
+        if v.Character:FindFirstChild("Humanoid").Health <= 0 or v.Character:FindFirstChild("ForceField") then
+            
+        else    
+        if v.Character:FindFirstChild("Humanoid").Health <= 200 then
+            game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
+            for asscheeks = 1,25 do
+                task.wait()
+                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,2,1))
+                local ohInstance1 = v.Character["Head"]
+                local ohInstance2 = v.Character.Humanoid
+
+                game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
+            end
+            game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(originpos)
+        end
+    end
+end
+end)
+end
+end
+else
+notif("Equip a tool")
+end
+else
+notif("Equip a melee")
+end
+end)
+        
+    end)
+end)
+
 v:Button("Kill All",function()
     pcall(function()
             if not _G.killallfirsttime2 then
@@ -671,7 +738,8 @@ v:Button("Kill All",function()
         newkillall2msg:Destroy()
         return
     end
-        if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire") then
+        if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool") then
+            if game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire") then
     if not _G.killallfirsttime then
         _G.killallfirsttime = true
         newkillallmsg = Instance.new("Message",workspace)
@@ -694,12 +762,13 @@ for i,v in pairs(game:GetService("Players"):GetPlayers()) do
             game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
             for asscheeks = 1,20 do
                 task.wait()
-                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,3,3))
+                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,2,1))
                 local ohInstance1 = v.Character["Head"]
                 local ohInstance2 = v.Character.Humanoid
 
                 game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
             end
+            
             game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(originpos)
         end
     end
@@ -707,11 +776,13 @@ end
 end)
 end
 else
-notif("Equip a weapon")
-end  
+notif("Equip a melee")
+end
+else
+notif("Equip a tool")
+end
 end)
 end)
-
 
 v:Button("Fast Respawn",function()
     pcall(function()
