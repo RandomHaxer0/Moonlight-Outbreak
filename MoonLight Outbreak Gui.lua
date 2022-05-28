@@ -1,4 +1,5 @@
 pcall(function()
+game:GetService("NetworkClient"):SetOutgoingKBPSLimit(0)
 if game:GetService("Workspace"):FindFirstChild("Folder") then
     game:GetService("Workspace"):FindFirstChild("Folder"):Destroy()
 end    
@@ -701,10 +702,13 @@ for i,v in pairs(game:GetService("Players"):GetPlayers()) do
             
         else    
         if v.Character:FindFirstChild("Humanoid").Health <= 200 then
-            game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
+            game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):Activate()
+            game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,1,0))
             for asscheeks = 1,25 do
+                game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):Activate()
                 task.wait()
-                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,2,1))
+                game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):Activate()
+                game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,1,0))
                 local ohInstance1 = v.Character["Head"]
                 local ohInstance2 = v.Character.Humanoid
 
@@ -759,9 +763,12 @@ for i,v in pairs(game:GetService("Players"):GetPlayers()) do
             
         else    
         if v.Character:FindFirstChild("Humanoid").Health <= 200 then
-            game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):FindFirstChild("Fire"):FireServer(ohInstance1, ohInstance2)
-            for asscheeks = 1,20 do
+            game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):Activate()
+            game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,1,0))
+            for asscheeks = 1,25 do
+                game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):Activate()
                 task.wait()
+                game:GetService("Players").LocalPlayer.Character:FindFirstChildWhichIsA("Tool"):Activate()
                 game:GetService("Players").LocalPlayer.Character:FindFirstChild("HumanoidRootPart").CFrame = CFrame.new(v.Character:FindFirstChild("HumanoidRootPart").Position+Vector3.new(0,2,1))
                 local ohInstance1 = v.Character["Head"]
                 local ohInstance2 = v.Character.Humanoid
