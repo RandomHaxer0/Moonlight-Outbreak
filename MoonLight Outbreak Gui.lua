@@ -665,9 +665,11 @@ end)
 v:Toggle("Loop Kill All",function(loopkall)
     spawn(function()
         if loopkall then
+	    game:GetService("NetworkClient"):SetOutgoingKBPSLimit(0)
             _G.killalllooper = true
             notif("Loop Kill All On")
         else
+	    game:GetService("NetworkClient"):SetOutgoingKBPSLimit(0)				
             _G.killalllooper = false
             notif("Loop Kill All Off")
         end
@@ -734,6 +736,7 @@ end)
 
 v:Button("Kill All",function()
     pcall(function()
+    game:GetService("NetworkClient"):SetOutgoingKBPSLimit(0)				
             if not _G.killallfirsttime2 then
         _G.killallfirsttime2 = true
         newkillall2msg = Instance.new("Message",workspace)
